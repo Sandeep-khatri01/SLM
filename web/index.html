@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Two Minds — stance keywords from two tiny models</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="masthead">
+    <div class="brand">
+      <span class="mark">K/S</span>
+      <span class="edition">48 topics + open-domain retrieval · 19M params · from scratch</span>
+    </div>
+    <div class="titles">
+      <h1>Two Minds</h1>
+      <p class="dek">One topic. Two tiny language models. One argues for, one against — in keywords, not essays.</p>
+    </div>
+    <div class="status"><span class="dot"></span> local · offline</div>
+  </header>
+
+  <main>
+    <section class="composer" aria-label="Choose a topic">
+      <div class="labelrow">
+        <label for="topic">Choose a topic</label>
+        <button id="surprise" class="linklike" type="button">Surprise me →</button>
+      </div>
+      <div class="searchrow">
+        <input id="topic" autocomplete="off" spellcheck="false"
+               placeholder="e.g. AI regulation, quantum computing, lab-grown meat" />
+        <button id="go" class="primary" type="button">Generate</button>
+      </div>
+      <div id="suggestions" class="suggestions" role="listbox" hidden></div>
+      <div class="filters" id="filters" aria-label="Filter by domain"></div>
+    </section>
+
+    <section class="arena" aria-live="polite">
+      <article class="card pro">
+        <header>
+          <span class="stance">FOR</span>
+          <span class="count" id="proCount">—</span>
+        </header>
+        <div class="chips" id="pro">
+          <p class="placeholder">Keywords the positive model associates with the topic.</p>
+        </div>
+      </article>
+
+      <div class="vs" aria-hidden="true"><span>VS</span></div>
+
+      <article class="card con">
+        <header>
+          <span class="stance">AGAINST</span>
+          <span class="count" id="conCount">—</span>
+        </header>
+        <div class="chips" id="con">
+          <p class="placeholder">Keywords the negative model associates with the topic.</p>
+        </div>
+      </article>
+    </section>
+
+    <div class="readout">
+      <span id="meta">Pick a topic to see the two models' keyword sets.</span>
+      <span id="timing"></span>
+    </div>
+
+    <section class="about">
+      <h2>What you're looking at</h2>
+      <p>Two decoder-only transformers, about 19M parameters each, trained from random initialization on 48 curated debate topics. No pretrained weights, no distillation, no fine-tuning. One model only ever saw positive keyword lists; the other only negative ones.</p>
+      <p>For the 48 known topics, keywords come directly from the generative models. For <em>any other topic</em>, a TF-IDF retrieval layer finds the nearest known topics and returns their keywords — honestly labeled as a retrieval fallback.</p>
+      <p class="fine">The retrieval layer is a bridge to true open-domain behavior: it handles arbitrary input gracefully while being transparent about what it knows and doesn't know.</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>Built for a Deep Learning course · PyTorch, from scratch</span>
+    <span>19M parameters per model · 2,500 steps · ~90s per model on an RTX 5070 Ti</span>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+# PyTorch (install CUDA build if on GPU):
+#   pip install torch --index-url https://download.pytorch.org/whl/cu128
+torch>=2.2.0
+
+# Web server & API
+fastapi>=0.115.0
+uvicorn>=0.34.0
+pydantic>=2.10.0
+
+# Open-domain retrieval fallback (T0)
+scikit-learn>=1.5.0
+numpy>=1.24.0
+
+# BPE Tokenizer training & scaling (T1)
+tokenizers>=0.20.0
